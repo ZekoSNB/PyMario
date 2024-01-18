@@ -1,2 +1,2 @@
 # PyMario
-A game with a player and a few levels
+- A game with a player and a few levels
