@@ -2,12 +2,11 @@ import abc
 
 
 class CanvasObject(abc.ABC):
-    def __init__(self, x, y, width, height, color):
+    def __init__(self, x, y, width, height):
         self.x = x
         self.y = y
         self.width = width
         self.height = height
-        self.color = color
 
     @abc.abstractmethod
     def draw_rect(self, screen):
@@ -34,10 +33,6 @@ class CanvasObject(abc.ABC):
         return self.height
 
     @abc.abstractmethod
-    def get_color(self):
-        return self.color
-
-    @abc.abstractmethod
     def set_x(self, x):
         self.x = x
 
@@ -52,8 +47,3 @@ class CanvasObject(abc.ABC):
     @abc.abstractmethod
     def set_height(self, height):
         self.height = height
-
-    @abc.abstractmethod
-    def set_color(self, color):
-        self.color = color
-
