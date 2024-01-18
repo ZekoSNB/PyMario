@@ -23,3 +23,4 @@ class Game:
         while True:
             self.update_events()
             self.update_screen()
+
