@@ -2,7 +2,6 @@ from os import environ
 environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
 import threading
 import pygame
-import sys
 import json
 from PyMario.Player import Player
 
@@ -31,7 +30,6 @@ class Game:
             # delta_time = self.clock.tick(self.FPS) / 1000
             # self.player.update_physics(delta_time)
             # print(delta_time)
-            print('physics')
 
             for event in pygame.event.get():
 
@@ -49,13 +47,11 @@ class Game:
 
                 if event.type == pygame.KEYUP:
                     self.player.set_Direction(Player.Direction.STATIC)
-            # print(clock.get_fps())
             self.clock.tick(self.CPPS)
 
     def update_screen(self, stop_event):
         while not stop_event.is_set():
-            print('screen')
-            # clock = pygame.time.Clock()
+            print(f'graphics {self.clock.get_fps()}')
             self.screen.fill(self.bg_color)
             self.player.update(self.screen)
             self.clock.tick(self.FPS)
@@ -70,5 +66,3 @@ class Game:
 
         thread_ph.join()
         thread_gui.join()
-            # self.update_events()
-            # self.update_screen()
