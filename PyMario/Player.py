@@ -15,10 +15,12 @@ class Player(CanvasObject, ABC):
     def draw_rect(self, screen):
         pygame.draw.rect(screen, (255, 0, 0), (self.x, self.y, self.width, self.height))
 
-    def update(self, screen, delta_time):
-        self.draw_rect(screen)
-        self.delta_time = delta_time
+    def update_physics(self, delta_time):
         self.move()
+
+    def update(self, screen):
+        self.draw_rect(screen)
+        # self.move()
 
     def move(self):
         if self.dir == self.Direction.LEFT:
