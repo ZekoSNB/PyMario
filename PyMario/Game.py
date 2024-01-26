@@ -1,4 +1,5 @@
 from os import environ
+
 environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
 import threading
 import pygame
@@ -11,6 +12,7 @@ class Game:
         with open('PyMario/settings.json', 'r') as f:
             settings = json.load(f)
         self.screen = pygame.display.set_mode((settings['WIDTH'], settings['HEIGHT']))
+        pygame.init()
         img = pygame.image.load('assets/image/icon.png')
         pygame.display.set_icon(img)
         pygame.display.set_caption(settings['TITLE'])
@@ -20,8 +22,9 @@ class Game:
         self.clock = pygame.time.Clock()
         self.FPS = 80
         self.CPPS = 320
-    
-    def exit(self, stop_event):
+
+    @staticmethod
+    def exit(stop_event):
         stop_event.set()
 
     def update_events(self, stop_event):
@@ -59,8 +62,8 @@ class Game:
 
     def run(self):
         stop_event = threading.Event()
-        thread_ph = threading.Thread(target=self.update_events, args=(stop_event, ))
-        thread_gui = threading.Thread(target=self.update_screen, args=(stop_event, ))
+        thread_ph = threading.Thread(target=self.update_events, args=(stop_event,))
+        thread_gui = threading.Thread(target=self.update_screen, args=(stop_event,))
         thread_ph.start()
         thread_gui.start()
 
