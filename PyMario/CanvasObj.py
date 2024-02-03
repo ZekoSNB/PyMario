@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 from enum import Flag, auto
 
+
 class CanvasObject(ABC):
     class Direction(Flag):
         STATIC = auto()
@@ -50,4 +51,3 @@ class CanvasObject(ABC):
 
     def set_Direction(self, direction):
         self.dir = direction
-
