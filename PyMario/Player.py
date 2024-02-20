@@ -10,22 +10,15 @@ class Player(CanvasObject, ABC):
         super().__init__(x, y, width, height)
         self.speed = 60
         self.kinetic_energy = 0
-        self.delta_time = 0
 
     def draw_rect(self, screen):
         pygame.draw.rect(screen, (255, 0, 0), (self.x, self.y, self.width, self.height))
 
-    def update_physics(self, delta_time):
-        self.move()
-
     def update(self, screen):
         self.draw_rect(screen)
-        # self.move()
 
-    def move(self):
+    def move(self, dt):
         if self.dir == self.Direction.LEFT:
-            self.x -= self.speed * self.delta_time
+            self.x -= self.speed * dt
         if self.dir == self.Direction.RIGHT:
-            self.x += self.speed * self.delta_time
-
-
+            self.x += self.speed * dt

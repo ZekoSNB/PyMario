@@ -49,5 +49,5 @@ class CanvasObject(ABC):
     def set_height(self, height):
         self.height = height
 
-    def set_Direction(self, direction):
+    def set_direction(self, direction):
         self.dir = direction
