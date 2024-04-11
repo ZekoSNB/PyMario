@@ -1,13 +1,14 @@
 import sys
 import json
 from os import environ
+from PyMario.Keyboard import Keyboard
 environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
 import pygame
 from PyMario.Player import Player
 
 
-class Game:
-    def __init__(self):
+class Game: # This class is responsible for the game loop and the game window
+    def __init__(self): # This method is responsible for initializing the game window (Constructor)
         with open('PyMario/settings.json', 'r') as f:
             settings = json.load(f)
         self.screen = pygame.display.set_mode((settings['WIDTH'], settings['HEIGHT']))
@@ -19,33 +20,30 @@ class Game:
         self.delta_time = 0
         self.player = Player(0, 0, 50, 50)
         self.clock = pygame.time.Clock()
-        self.FPS = 80
+        self.keyboard = Keyboard()
+        self.FPS = 120
 
-    def update_events(self):
+    def update_events(self):  # This method is responsible for updating the events
+        self.player.set_direction(self.keyboard.get_player_dir(self.player))
+
         for event in pygame.event.get():
 
             if event.type == pygame.QUIT:
                 sys.exit()
 
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_a and event.key == pygame.K_d or \
-                        event.key == pygame.K_LEFT and event.key == pygame.K_RIGHT:
-                    self.player.set_Direction(Player.Direction.STATIC)
-                elif event.key == pygame.K_a or event.key == pygame.K_LEFT:
-                    self.player.set_Direction(Player.Direction.LEFT)
-                elif event.key == pygame.K_d or event.key == pygame.K_RIGHT:
-                    self.player.set_Direction(Player.Direction.RIGHT)
+                if event.key == pygame.K_ESCAPE:
+                    sys.exit()
 
-            if event.type == pygame.KEYUP:
-                self.player.set_Direction(Player.Direction.STATIC)
-
-    def update_screen(self):
+    def update_screen(self): # This method is responsible for updating the screen
         self.screen.fill(self.bg_color)
         self.player.update(self.screen)
 
-    def run(self):
+    def run(self): # This method is responsible for running the game loop
         while True:
             self.update_events()
+            self.delta_time = self.clock.tick(self.FPS) / 1000.0
+            self.player.update_physics(self.delta_time)
             self.update_screen()
             pygame.display.flip()
             self.clock.tick(self.FPS)
