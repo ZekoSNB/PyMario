@@ -7,7 +7,7 @@ import pygame
 from PyMario.Player import Player
 
 
-class Game: # This class is responsible for the game loop and the game window
+class Game:  # This class is responsible for the game loop and the game window
     def __init__(self): # This method is responsible for initializing the game window (Constructor)
         with open('PyMario/settings.json', 'r') as f:
             settings = json.load(f)
@@ -21,7 +21,7 @@ class Game: # This class is responsible for the game loop and the game window
         self.player = Player(0, 0, 50, 50)
         self.clock = pygame.time.Clock()
         self.keyboard = Keyboard()
-        self.FPS = 120
+        self.FPS = settings['FPS']
 
     def update_events(self):  # This method is responsible for updating the events
         self.player.set_direction(self.keyboard.get_player_dir(self.player))
@@ -35,11 +35,11 @@ class Game: # This class is responsible for the game loop and the game window
                 if event.key == pygame.K_ESCAPE:
                     sys.exit()
 
-    def update_screen(self): # This method is responsible for updating the screen
+    def update_screen(self):  # This method is responsible for updating the screen
         self.screen.fill(self.bg_color)
         self.player.update(self.screen)
 
-    def run(self): # This method is responsible for running the game loop
+    def run(self):  # This method is responsible for running the game loop
         while True:
             self.update_events()
             self.delta_time = self.clock.tick(self.FPS) / 1000.0

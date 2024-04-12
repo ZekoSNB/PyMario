@@ -9,8 +9,12 @@ class CanvasObject(ABC):
         STATIC = auto()  # Represents no movement.
         LEFT = auto()  # Represents movement to the left.
         RIGHT = auto()  # Represents movement to the right.
-        UP = auto()  # Represents movement upwards.
-        DOWN = auto()  # Represents movement downwards.
+
+    class JumpingState(Flag):
+        GROUNDED = auto()
+        MOVING = auto()
+        JUMPING = auto()
+        FALLING = auto()
 
     # Constructor for CanvasObject class.
     # @param x: The x-coordinate of the object.
@@ -18,12 +22,13 @@ class CanvasObject(ABC):
     # @param width: The width of the object.
     # @param height: The height of the object.
     # @param direction: The direction of the object's movement. Defaults to STATIC.
-    def __init__(self, x, y, width, height, direction=Direction.STATIC):
+    def __init__(self, x, y, width, height, direction=Direction.STATIC, state=JumpingState.GROUNDED):
         self.x = x
         self.y = y
         self.width = width
         self.height = height
         self.dir = direction
+        self.state = state
 
     # Abstract method to draw the object as a rectangle on the screen.
     # @param screen: The pygame screen object where the object will be drawn.

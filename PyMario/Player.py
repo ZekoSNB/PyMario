@@ -3,7 +3,7 @@ import pygame
 from PyMario.CanvasObj import CanvasObject
 
 
-class Player(CanvasObject, ABC): # Player class inherits from CanvasObject and ABC
+class Player(CanvasObject, ABC):  # Player class inherits from CanvasObject and ABC
 
     # Constructor for Player class
     # @param x: The x-coordinate of the player
@@ -12,7 +12,10 @@ class Player(CanvasObject, ABC): # Player class inherits from CanvasObject and A
     # @param height: The height of the player
     def __init__(self, x, y, width, height):
         super().__init__(x, y, width, height)
-        self.speed = 300  # The speed of the player
+        self.ground_speed = 300  # The speed of the player
+        self.ground_height = 500
+        self.max_velocity = 500  # The maximum velocity of the player
+        self.velocity = 0 # The velocity of the player
         self.kinetic_energy = 0  # The kinetic energy of the player
 
     # Method to draw the player as a rectangle on the screen
@@ -23,6 +26,9 @@ class Player(CanvasObject, ABC): # Player class inherits from CanvasObject and A
     # Method to update the physics of the player
     # @param delta_time: The time elapsed since the last frame
     def update_physics(self, delta_time):
+        if self.dir == Player.Direction.UP:
+            self.jump()
+        # Kinetic energy equation => E_k = 0.5 * m * v^2
         self.move(delta_time)  # Call the move method with delta_time as argument
 
     # Method to update the player
@@ -36,6 +42,13 @@ class Player(CanvasObject, ABC): # Player class inherits from CanvasObject and A
         if self.dir == self.Direction.STATIC:  # If the player is not moving
             return
         if self.dir == self.Direction.LEFT:  # If the player is moving to the left
-            self.x -= self.speed * delta_time  # Update the x-coordinate of the player
+            self.x -= self.ground_speed * delta_time  # Update the x-coordinate of the player
         if self.dir == self.Direction.RIGHT:  # If the player is moving to the right
-            self.x += self.speed * delta_time  # Update the x-coordinate of the player
+            self.x += self.ground_speed * delta_time  # Update the x-coordinate of the player
+
+    def jump(self):
+        if self.y == self.ground_height and self.dir == Player.Direction.UP:
+            self.velocity = -10
+
+
+
