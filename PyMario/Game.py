@@ -19,7 +19,7 @@ class Game:  # This class is responsible for the game loop and the game window
         self.bg_color = (255, 255, 255)
         self.delta_time = 0
         self.player = Player(0, 0, 50, 50)
-        self.clock = pygame.time.Clock()All I want to say is thank you, Danke :). In all honesty it was a wonderful experience to travel abroad alone and to have beautiful memories with you and kamile roaming the city. I don’t know if you did it on purpose, but you have achieved making my trip really fun and pleasant. Currently I’m sitting in the airplane happy to see my girlfriend tomorrow, but I’ll still mention you and Kamile the most since I spent the most time with you. Beautiful time, thank you very much, hopefully the shark is doing fine :)
+        self.clock = pygame.time.Clock()
         self.keyboard = Keyboard()
         self.FPS = settings['FPS']
 
