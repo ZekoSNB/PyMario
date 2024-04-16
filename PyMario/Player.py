@@ -26,8 +26,6 @@ class Player(CanvasObject, ABC):  # Player class inherits from CanvasObject and 
     # Method to update the physics of the player
     # @param delta_time: The time elapsed since the last frame
     def update_physics(self, delta_time):
-        if self.dir == Player.Direction.UP:
-            self.jump()
         # Kinetic energy equation => E_k = 0.5 * m * v^2
         self.move(delta_time)  # Call the move method with delta_time as argument
 
