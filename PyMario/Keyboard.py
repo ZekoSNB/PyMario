@@ -26,5 +26,5 @@ class Keyboard:  # Keyboard class is responsible for handling keyboard inputs
     @staticmethod
     def get_player_jump(player: Player, pressed_keys, state: Player.JumpingState):
         if (pressed_keys[pygame.K_UP] or pressed_keys[pygame.K_SPACE] or pressed_keys[pygame.K_w]) and \
-                state == player.JumpingState.GROUNDED:
+                state == player.JumpingState.GROUNDED or state == player.JumpingState.MOVING:
             return player.JumpingState.JUMPING
