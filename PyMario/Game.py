@@ -18,7 +18,7 @@ class Game:  # This class is responsible for the game loop and the game window
         pygame.display.set_caption(settings['TITLE'])
         self.bg_color = (255, 255, 255)
         self.delta_time = 0
-        self.player = Player(0, 0, 50, 50)
+        self.player = Player(0, 550, 50, 50)
         self.clock = pygame.time.Clock()
         self.keyboard = Keyboard()
         self.FPS = settings['FPS']
@@ -26,6 +26,8 @@ class Game:  # This class is responsible for the game loop and the game window
     def update_events(self):  # This method is responsible for updating the events
         pressed_keys = pygame.key.get_pressed()
         self.player.set_direction(self.keyboard.get_player_dir(self.player, pressed_keys))
+        self.player.set_state(self.keyboard.get_player_jump(self.player, pressed_keys, self.player.state))
+        print(self.player.get_state())
 
         for event in pygame.event.get():
 

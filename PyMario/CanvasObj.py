@@ -82,3 +82,9 @@ class CanvasObject(ABC):
     # Getter for the direction of the object's movement.
     def get_direction(self) -> Direction:
         return self.dir
+
+    def set_state(self, state: JumpingState):
+        self.state = state
+
+    def get_state(self) -> JumpingState:
+        return self.state

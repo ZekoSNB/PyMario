@@ -15,7 +15,7 @@ class Player(CanvasObject, ABC):  # Player class inherits from CanvasObject and 
         self.ground_speed = 300  # The speed of the player
         self.ground_height = 500
         self.max_velocity = 500  # The maximum velocity of the player
-        self.velocity = 0 # The velocity of the player
+        self.velocity = 0  # The velocity of the player
         self.kinetic_energy = 0  # The kinetic energy of the player
 
     # Method to draw the player as a rectangle on the screen
@@ -29,7 +29,17 @@ class Player(CanvasObject, ABC):  # Player class inherits from CanvasObject and 
         # Kinetic energy equation => E_k = 0.5 * m * v^2
 
         self.kinetic_energy = 0.5 * 1 * self.velocity ** 2  # Calculate the kinetic energy of the player
-        if self.y < self.ground_height and self.velocity >= 0:
+
+        print(self.y)
+
+        if self.y == self.ground_height:
+            self.state = self.JumpingState.GROUNDED
+
+        if self.state == self.JumpingState.JUMPING:
+            print('jumping')
+            self.set_y(self.y + self.velocity * delta_time)
+            self.velocity += 2
+        elif self.y < self.ground_height and self.velocity >= 0:
             self.set_y(self.y + self.velocity * delta_time)  # Update the y-coordinate of the player
             self.velocity += 250 * delta_time  # Update the velocity of the player
 
@@ -38,7 +48,8 @@ class Player(CanvasObject, ABC):  # Player class inherits from CanvasObject and 
             print('falling')
             self.set_y(self.ground_height)
             self.velocity = 0
-        self.move(delta_time)  # Call the move method with delta_time as argument
+        self.move(delta_time)  # Call the move method with delta_time as
+        self.jump()
 
     # Method to update the player
     # @param screen: The pygame screen object where the player will be drawn
@@ -59,7 +70,7 @@ class Player(CanvasObject, ABC):  # Player class inherits from CanvasObject and 
     def jump(self):
         if self.y == self.ground_height and self.state == self.JumpingState.GROUNDED or \
                 self.state == self.JumpingState.MOVING:
-            self.velocity = -10
+            self.velocity = -1000
             self.state = self.JumpingState.JUMPING
 
 
