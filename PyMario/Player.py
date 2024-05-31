@@ -31,11 +31,13 @@ class Player(CanvasObject, ABC):  # Player class inherits from CanvasObject and 
         self.kinetic_energy = 0.5 * 1 * self.velocity ** 2  # Calculate the kinetic energy of the player
 
         print(self.y)
+        player_touching_ground = self.y = self.ground_height
+        player_want_to_jump = self.state == self.JumpingState.JUMPING
 
-        if self.y == self.ground_height:
+        if player_touching_ground:
             self.state = self.JumpingState.GROUNDED
 
-        if self.state == self.JumpingState.JUMPING:
+        if player_want_to_jump:
             print('jumping')
             self.set_y(self.y + self.velocity * delta_time)
             self.velocity += 2
@@ -72,6 +74,3 @@ class Player(CanvasObject, ABC):  # Player class inherits from CanvasObject and 
                 self.state == self.JumpingState.MOVING:
             self.velocity = -1000
             self.state = self.JumpingState.JUMPING
-
-
-
